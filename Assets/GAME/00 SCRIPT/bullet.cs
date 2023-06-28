@@ -14,7 +14,7 @@ public class bullet : BulletBase
             isCanGetHit.GetHit(this._dmg);
         }
     }
-
+    //xyz
     private void OnTriggerEnter2D(Collider2D collision)
     {
         this.Boom(collision.gameObject);
