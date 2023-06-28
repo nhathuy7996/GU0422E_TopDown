@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour, IGetHit
             _gun.Fire();
         }
     }
-
+    //test git
     private void FixedUpdate()
     {
         if (Input.GetAxisRaw("Vertical") > 0)
