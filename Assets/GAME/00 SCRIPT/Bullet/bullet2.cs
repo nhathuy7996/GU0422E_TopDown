@@ -22,15 +22,9 @@ public class bullet2 : BulletBase
         this._speed /= 2f;
 
         if (_countTarget >= 2)
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         _countTarget++;
     }
-
-    // Start is called before the first frame update
-
-
-    // Update is called once per frame
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -31,7 +31,7 @@ public abstract class BulletBase : MonoBehaviour
     {
         this._lifeTime -= Time.deltaTime;
         if (this._lifeTime < 0)
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()

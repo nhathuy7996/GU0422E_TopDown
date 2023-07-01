@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour, IGetHit
     Vector2 _movement;
 
     [SerializeField] GameObject _bullet;
-    [SerializeField] GunController _gun;
+    [SerializeField] GunControllerBase _gun;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour, IGetHit
     }
 
     public void Init() {
+        if (_gun == null)
+            this._gun = this.GetComponentInChildren<GunControllerBase>();
         _gun.Init(this);
     }
 

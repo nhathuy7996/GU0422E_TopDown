@@ -6,7 +6,7 @@ public class bullet : BulletBase
 {
     protected override void Boom(GameObject target)
     {
-        Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
 
         IGetHit isCanGetHit = target.GetComponent<IGetHit>();
         if (isCanGetHit != null)
