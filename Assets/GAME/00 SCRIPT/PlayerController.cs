@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour, IGetHit
 {
@@ -74,7 +75,7 @@ public class PlayerController : MonoBehaviour, IGetHit
             this._HP -= (dmg - _armor);
 
         if (this._HP < 0)
-            Debug.Log("Player die");
+            SceneManager.LoadScene(0);
     }
 
    

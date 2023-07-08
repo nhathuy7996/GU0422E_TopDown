@@ -8,6 +8,8 @@ public class EnemyController : MonoBehaviour, IGetHit
     float _HP = 100;
     float _armor = 0;
 
+    float _baseDmg = 30;
+
     Rigidbody2D _rigi;
     Transform _player;
 
@@ -121,6 +123,16 @@ public class EnemyController : MonoBehaviour, IGetHit
             this.gameObject.SetActive(false);
             this.gameM._kill++;
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision2D) {
+        Debug.LogError(collision2D.gameObject.name);
+        IGetHit isCanGetHit = collision2D.gameObject.GetComponent<IGetHit>();
+
+        if (isCanGetHit == null)
+            return;
+
+        isCanGetHit.GetHit(_baseDmg);
     }
 
 }
