@@ -28,6 +28,10 @@ public class EnemyController : MonoBehaviour, IGetHit
         
     }
 
+    public void Init() {
+        this._HP = 100;
+    }
+
     // Update is called once per frame
     void Update()
     {

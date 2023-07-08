@@ -9,35 +9,65 @@ public class EnemyManager : MonoBehaviour
     float _timer = 0;
 
     [SerializeField] EnemyController _enemyPrefab;
+
+    Coroutine routineRepeatSpawn;
     // Start is called before the first frame update
     void Start()
     {
-        
+        routineRepeatSpawn = StartCoroutine(repeatSpawn());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(_timer > 0) {
+       // Spawn();
+    }
+
+    IEnumerator repeatSpawn() {
+        while (true) {
+            yield return new WaitForSeconds(_timer);
+
+            Spawn();
+        }
+        
+    }
+
+    void Spawn() {
+        if (_timer > 0)
+        {
             _timer -= Time.deltaTime;
             return;
         }
         Collider2D[] collider2Ds;
         Vector2 pos;
-        do {
+        do
+        {
 
             pos = _player.transform.position;
             pos.x += Random.Range(-5f, 5f);
             pos.y += Random.Range(-5f, 5f);
 
             collider2Ds = Physics2D.OverlapCircleAll(pos, 0.25f);
-        } while ( collider2Ds.Length > 0);
+        } while (collider2Ds.Length > 0);
 
 
         EnemyController e = ObjectPooling.Instant.Getcomp(_enemyPrefab);
         e.transform.position = pos;
+        e.Init();
         e.gameObject.SetActive(true);
 
         _timer = Random.Range(_minTimeSpawn, _maxTimeSpawn);
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(routineRepeatSpawn);
+
+       
+    }
+
+    private void OnDestroy()
+    {
+        StopCoroutine(routineRepeatSpawn);
     }
 }
