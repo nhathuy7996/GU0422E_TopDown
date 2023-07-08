@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instant => _instant;
 
     [SerializeField] PlayerController _player;
+    public PlayerController player => _player;
     public int _kill = 0;
 
     private void Awake()

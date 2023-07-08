@@ -22,5 +22,4 @@ public class GunController : GunControllerBase
         _timer = _coolDownTime;
 
     }
-
 }

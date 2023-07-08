@@ -24,6 +24,8 @@ public class EnemyController : MonoBehaviour, IGetHit
     {
         _rigi = this.GetComponent<Rigidbody2D>();
         this.gameM = GameManager.Instant;
+
+        
     }
 
     // Update is called once per frame
@@ -109,7 +111,7 @@ public class EnemyController : MonoBehaviour, IGetHit
 
         if (this._HP < 0)
         {
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
             this.gameM._kill++;
         }
     }
