@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour, IGetHit
 {
     float _HP = 100;
     float _armor = 10;
+
+    [SerializeField] Image _hpBar;
 
     Rigidbody2D _rigi;
     [SerializeField] float _speed, _speedRotate, _coolDownTime;
@@ -20,6 +23,8 @@ public class PlayerController : MonoBehaviour, IGetHit
     void Start()
     {
         _rigi = this.GetComponent<Rigidbody2D>();
+
+       
     }
 
     public void Init() {
