@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour, IGetHit
 
  
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _rigi = this.GetComponent<Rigidbody2D>();
         this.gameM = GameManager.Instant;
@@ -30,6 +30,9 @@ public class EnemyController : MonoBehaviour, IGetHit
 
     public void Init() {
         this._HP = 100;
+        if(this.gameM == null)
+            this.gameM = GameManager.Instant;
+        _player = this.gameM.player.transform;
     }
 
     // Update is called once per frame

@@ -11,11 +11,14 @@ public abstract class BulletBase : MonoBehaviour
 
     protected Vector2 _movement = Vector2.zero;
 
+    Coroutine routineAutoDestruct;
     // Start is called before the first frame update
     void Start()
     {
         if (_rigi == null)
-            _rigi = this.GetComponent<Rigidbody2D>(); 
+            _rigi = this.GetComponent<Rigidbody2D>();
+
+       
     }
 
     public void Init(float speed, float dmg, float lifeTime, Vector2 movement)
@@ -24,14 +27,26 @@ public abstract class BulletBase : MonoBehaviour
         this._dmg = dmg;
         this._lifeTime = lifeTime;
         this._movement = movement;
+
+       
+    }
+
+    void OnEnable() {
+        routineAutoDestruct = StartCoroutine(autoDestruct());
     }
 
     // Update is called once per frame
     void Update()
     {
-        this._lifeTime -= Time.deltaTime;
-        if (this._lifeTime < 0)
-            this.gameObject.SetActive(false);
+        //this._lifeTime -= Time.deltaTime;
+        //if (this._lifeTime < 0)
+        //    this.gameObject.SetActive(false);
+    }
+
+    IEnumerator autoDestruct() {
+        yield return new WaitForSeconds(this._lifeTime);
+
+        this.gameObject.SetActive(false);
     }
 
     private void FixedUpdate()
@@ -44,10 +59,10 @@ public abstract class BulletBase : MonoBehaviour
     private void OnDisable()
     {
         _rigi.velocity = Vector2.zero;
+
+        if (routineAutoDestruct != null)
+            StopCoroutine(routineAutoDestruct);
     }
 
-    private void OnEnable()
-    {
-        
-    }
+   
 }

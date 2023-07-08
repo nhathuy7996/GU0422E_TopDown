@@ -33,11 +33,7 @@ public class EnemyManager : MonoBehaviour
     }
 
     void Spawn() {
-        if (_timer > 0)
-        {
-            _timer -= Time.deltaTime;
-            return;
-        }
+       
         Collider2D[] collider2Ds;
         Vector2 pos;
         do
@@ -61,13 +57,15 @@ public class EnemyManager : MonoBehaviour
 
     private void OnDisable()
     {
-        StopCoroutine(routineRepeatSpawn);
+        if(routineRepeatSpawn != null)
+            StopCoroutine(routineRepeatSpawn);
 
        
     }
 
     private void OnDestroy()
     {
-        StopCoroutine(routineRepeatSpawn);
+        if (routineRepeatSpawn != null)
+            StopCoroutine(routineRepeatSpawn);
     }
 }
