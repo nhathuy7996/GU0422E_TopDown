@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager _instant;
+    public static GameManager Instant => _instant;
+
     [SerializeField] PlayerController _player;
+    public int _kill = 0;
+
+    private void Awake()
+    {
+        _instant = this;
+    }
 
     void Init() {
         _player.Init();

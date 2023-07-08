@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour, IGetHit
 {
+
     float _HP = 100;
     float _armor = 0;
 
@@ -15,10 +16,14 @@ public class EnemyController : MonoBehaviour, IGetHit
 
     [SerializeField] LayerMask _layerMask, _playerLayerMask;
     [SerializeField] float _detectTargetRadius;
+    GameManager gameM;
+
+ 
     // Start is called before the first frame update
     void Start()
     {
         _rigi = this.GetComponent<Rigidbody2D>();
+        this.gameM = GameManager.Instant;
     }
 
     // Update is called once per frame
@@ -103,7 +108,10 @@ public class EnemyController : MonoBehaviour, IGetHit
             this._HP -= (dmg - _armor);
 
         if (this._HP < 0)
+        {
             Destroy(this.gameObject);
+            this.gameM._kill++;
+        }
     }
 
 }

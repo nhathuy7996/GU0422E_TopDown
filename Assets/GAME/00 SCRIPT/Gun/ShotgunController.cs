@@ -8,6 +8,7 @@ public class ShotgunController : GunControllerBase
     [Header("------ShotGun Config-------")]
     [SerializeField] int _numberBulletPerShot = 3;
     [SerializeField] float _maxAngle = 45;
+
     public override void Fire()
     {
        
@@ -15,9 +16,14 @@ public class ShotgunController : GunControllerBase
             return;
 
         Vector2 movement = _player.transform.right;
-       
-        Instantiate<BulletBase>(_bullet, this.transform.position, Quaternion.identity).
-                Init(_bulletSpeed, _bulletDamage, _lifeTime, movement);
+
+        BulletBase bulletInstant = ObjectPooling.Instant.Getcomp(_bullet);
+         
+        bulletInstant.Init(_bulletSpeed, _bulletDamage, _lifeTime, movement);
+        bulletInstant.transform.position = this.transform.position;
+        bulletInstant.gameObject.SetActive(true);
+        
+        
 
         float angle = Mathf.Atan2(movement.y, movement.x) * Mathf.Rad2Deg;
 
@@ -31,9 +37,12 @@ public class ShotgunController : GunControllerBase
             movement.x = Mathf.Cos(lefAngel * Mathf.Deg2Rad);
             movement.y = Mathf.Sin(lefAngel * Mathf.Deg2Rad);
 
+            bulletInstant = ObjectPooling.Instant.Getcomp(_bullet);
 
-            Instantiate<BulletBase>(_bullet, this.transform.position, Quaternion.identity).
-                 Init(_bulletSpeed, _bulletDamage, _lifeTime, movement);
+            bulletInstant.Init(_bulletSpeed, _bulletDamage, _lifeTime, movement);
+            bulletInstant.transform.position = this.transform.position;
+            bulletInstant.gameObject.SetActive(true);
+
         }
 
         for (int i = _numberBulletPerShot / 2; i < _numberBulletPerShot-1; i++)
@@ -43,9 +52,12 @@ public class ShotgunController : GunControllerBase
             movement.x = Mathf.Cos(rightAngle * Mathf.Deg2Rad);
             movement.y = Mathf.Sin(rightAngle * Mathf.Deg2Rad);
 
+            bulletInstant = ObjectPooling.Instant.Getcomp(_bullet);
 
-            Instantiate<BulletBase>(_bullet, this.transform.position, Quaternion.identity).
-                 Init(_bulletSpeed, _bulletDamage, _lifeTime, movement);
+            bulletInstant.Init(_bulletSpeed, _bulletDamage, _lifeTime, movement);
+            bulletInstant.transform.position = this.transform.position;
+            bulletInstant.gameObject.SetActive(true);
+
         }
 
 

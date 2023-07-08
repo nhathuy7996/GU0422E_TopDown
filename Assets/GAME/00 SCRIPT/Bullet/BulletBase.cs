@@ -40,4 +40,14 @@ public abstract class BulletBase : MonoBehaviour
     }
 
     protected abstract void Boom(GameObject target);
+
+    private void OnDisable()
+    {
+        _rigi.velocity = Vector2.zero;
+    }
+
+    private void OnEnable()
+    {
+        
+    }
 }

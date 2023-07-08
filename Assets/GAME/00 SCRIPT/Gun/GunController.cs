@@ -14,23 +14,13 @@ public class GunController : GunControllerBase
         if (_timer > 0)
             return;
 
-        GameObject bulletInstant = this.GetBullet();
-        if(bulletInstant == null) {
-            BulletBase b = Instantiate<BulletBase>(_bullet, this.transform.position, Quaternion.identity);
-            b.Init(_bulletSpeed, _bulletDamage, _lifeTime, _player.transform.right);
+        BulletBase bulletInstant = ObjectPooling.Instant.Getcomp<BulletBase>(_bullet);
 
-            this._bulletPooling.Add(b.gameObject);
-
-        }
-
-        bulletInstant.GetComponent<BulletBase>().Init(_bulletSpeed, _bulletDamage, _lifeTime, _player.transform.right);
+        bulletInstant.Init(_bulletSpeed, _bulletDamage, _lifeTime, _player.transform.right);
         bulletInstant.transform.position = this.transform.position;
         bulletInstant.gameObject.SetActive(true);
-
-
         _timer = _coolDownTime;
 
     }
 
-    
 }

@@ -13,7 +13,7 @@ public class bullet2 : BulletBase
         IGetHit isCanGetHit = target.GetComponent<IGetHit>();
         if (isCanGetHit == null)
         {
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
             return;
         }
 
