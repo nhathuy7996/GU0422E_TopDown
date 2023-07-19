@@ -29,7 +29,8 @@ public abstract class GunControllerBase : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _timer -= Time.deltaTime;
+        if(_timer > 0)
+            _timer -= Time.deltaTime;
     }
 
     public abstract void Fire();

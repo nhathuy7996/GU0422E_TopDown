@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour, IGetHit
         if(dmg - _armor > 0)
             this._HP -= (dmg - _armor);
 
-        UIManager.Instant.setPlayerHealthBar(this._HP/100f);
+        UIManager.Instant.setPlayerHealthBar(this._HP);
 
        // if (this._HP < 0)
            // SceneManager.LoadScene(0);
