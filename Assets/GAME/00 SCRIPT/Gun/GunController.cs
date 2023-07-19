@@ -14,10 +14,12 @@ public class GunController : GunControllerBase
         if (_timer > 0)
             return;
 
-        BulletBase bulletInstant = ObjectPooling.Instant.Getcomp<BulletBase>(_bullet);
+        Debug.LogError(_bullet.GetType());
 
-        bulletInstant.Init(_bulletSpeed, _bulletDamage, _lifeTime, _player.transform.right);
+        BulletBase bulletInstant = ObjectPooling.Instant.Getcomp<BulletBase> (_bullet);
+
         bulletInstant.transform.position = this.transform.position;
+        bulletInstant.Init(_bulletSpeed, _bulletDamage, _lifeTime, _player.transform.right); 
         bulletInstant.gameObject.SetActive(true);
         _timer = _coolDownTime;
 

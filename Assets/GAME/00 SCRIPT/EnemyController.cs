@@ -25,12 +25,11 @@ public class EnemyController : MonoBehaviour, IGetHit
     void Awake()
     {
         _rigi = this.GetComponent<Rigidbody2D>();
-        this.gameM = GameManager.Instant;
-
-        
+         
     }
 
     public void Init() {
+        this.gameM = GameManager.Instant;
         this._HP = 100;
         if(this.gameM == null)
             this.gameM = GameManager.Instant;
@@ -40,6 +39,8 @@ public class EnemyController : MonoBehaviour, IGetHit
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instant.GameState != GAME_STATE.Play)
+            return;
         this.ChasePlayer();
         if (DetectObstacle())
             _player = null;
@@ -61,6 +62,11 @@ public class EnemyController : MonoBehaviour, IGetHit
 
     private void FixedUpdate()
     {
+        if (GameManager.Instant.GameState != GAME_STATE.Play)
+        {
+            this._rigi.velocity = Vector2.zero;
+            return;
+        }
         this._rigi.velocity = this.transform.up * _speed * _movement;
     }
 
@@ -115,18 +121,21 @@ public class EnemyController : MonoBehaviour, IGetHit
 
     public void GetHit(float dmg)
     {
+        if (this._HP <= 0)
+            return;
+
         if (dmg - _armor > 0)
             this._HP -= (dmg - _armor);
 
         if (this._HP < 0)
         {
             this.gameObject.SetActive(false);
-            this.gameM._kill++;
+            this.gameM.kill++;
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision2D) {
-        Debug.LogError(collision2D.gameObject.name);
+         
         IGetHit isCanGetHit = collision2D.gameObject.GetComponent<IGetHit>();
 
         if (isCanGetHit == null)

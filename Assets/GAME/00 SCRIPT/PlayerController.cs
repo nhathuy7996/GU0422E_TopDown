@@ -36,7 +36,11 @@ public class PlayerController : MonoBehaviour, IGetHit
     // Update is called once per frame
     void Update()
     {
-       // this.Moving();
+        // this.Moving();
+        if (GameManager.Instant.GameState != GAME_STATE.Play)
+            return;
+
+
         this.RotatePlayer();
 
         if (Input.GetKeyDown(KeyCode.Space)) {
@@ -79,8 +83,10 @@ public class PlayerController : MonoBehaviour, IGetHit
         if(dmg - _armor > 0)
             this._HP -= (dmg - _armor);
 
-        if (this._HP < 0)
-            SceneManager.LoadScene(0);
+        UIManager.Instant.setPlayerHealthBar(this._HP/100f);
+
+       // if (this._HP < 0)
+           // SceneManager.LoadScene(0);
     }
 
    

@@ -2,19 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public enum GAME_STATE {
+    Idle,
+    Play,
+    Over,
+    Pause
+}
+
+public class GameManager : Singleton<GameManager>
 {
-    private static GameManager _instant;
-    public static GameManager Instant => _instant;
 
     [SerializeField] PlayerController _player;
     public PlayerController player => _player;
-    public int _kill = 0;
+    private int _kill = 0;
 
-    private void Awake()
-    {
-        _instant = this;
+    public int kill {
+        get {
+            return _kill;
+        }
+
+        set {
+            if (value < 0)
+                value = 0;
+
+            _kill = value;
+
+            UIManager.Instant.SetUIScore(_kill);
+        }
     }
+
+    public GAME_STATE GameState = GAME_STATE.Idle;
 
     void Init() {
         _player.Init();
@@ -28,6 +45,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+       
+    }
+
+
+    public void TestButton() {
+
+        Debug.LogError("Call herre");
     }
 }

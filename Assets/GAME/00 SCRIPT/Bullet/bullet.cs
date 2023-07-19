@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class bullet : BulletBase
 {
+     
+ 
+
     protected override void Boom(GameObject target)
     {
         this.gameObject.SetActive(false);
@@ -19,4 +22,6 @@ public class bullet : BulletBase
     {
         this.Boom(collision.gameObject);
     }
+
+    
 }

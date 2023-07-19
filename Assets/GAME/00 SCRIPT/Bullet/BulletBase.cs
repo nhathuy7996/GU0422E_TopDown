@@ -11,6 +11,8 @@ public abstract class BulletBase : MonoBehaviour
 
     protected Vector2 _movement = Vector2.zero;
 
+    TrailRenderer _trail;
+
     Coroutine routineAutoDestruct;
     // Start is called before the first frame update
     void Start()
@@ -18,7 +20,7 @@ public abstract class BulletBase : MonoBehaviour
         if (_rigi == null)
             _rigi = this.GetComponent<Rigidbody2D>();
 
-       
+        this._trail = this.GetComponent<TrailRenderer>();
     }
 
     public void Init(float speed, float dmg, float lifeTime, Vector2 movement)
@@ -28,7 +30,7 @@ public abstract class BulletBase : MonoBehaviour
         this._lifeTime = lifeTime;
         this._movement = movement;
 
-       
+        this._trail.Clear();
     }
 
     void OnEnable() {

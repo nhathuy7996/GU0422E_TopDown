@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyManager : MonoBehaviour
+public class EnemyManager : Singleton<EnemyManager>
 {
     [SerializeField] Transform _player;
     [SerializeField] float _maxTimeSpawn,_minTimeSpawn;
@@ -12,7 +12,7 @@ public class EnemyManager : MonoBehaviour
 
     Coroutine routineRepeatSpawn;
     // Start is called before the first frame update
-    void Start()
+    public void Init()
     {
         routineRepeatSpawn = StartCoroutine(repeatSpawn());
     }
@@ -33,6 +33,9 @@ public class EnemyManager : MonoBehaviour
     }
 
     void Spawn() {
+
+        if (GameManager.Instant.GameState != GAME_STATE.Play)
+            return;
        
         Collider2D[] collider2Ds;
         Vector2 pos;

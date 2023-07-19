@@ -2,20 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPooling : MonoBehaviour
+public class ObjectPooling : Singleton<ObjectPooling>
 {
-    private static ObjectPooling _instant;
-    public static ObjectPooling Instant => _instant;
-
+   
     //pooling
     Dictionary<GameObject, List<GameObject>> _pool = new Dictionary<GameObject, List<GameObject>>();
-
-
-
-    private void Awake()
-    {
-        _instant = this;
-    }
 
     public virtual GameObject GetObj(GameObject prefab)
     {
