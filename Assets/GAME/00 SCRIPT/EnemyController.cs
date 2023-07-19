@@ -25,7 +25,7 @@ public class EnemyController : MonoBehaviour, IGetHit
     void Awake()
     {
         _rigi = this.GetComponent<Rigidbody2D>();
-         
+        //Huy create new code
     }
 
     public void Init() {
